@@ -42,8 +42,8 @@
 
         <!-- quarkus -->
         <camel-quarkus-version>2.7.0</camel-quarkus-version>
-        <graalvm-version>21.3.0</graalvm-version>
         <quarkus-version>2.7.0.Final</quarkus-version>
+        <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-native-image:21.3-java11</quarkus-native-builder-image>
 
         <!-- camel-k -->
         <groovy-version>3.0.9</groovy-version>
@@ -992,7 +992,7 @@
             <properties>
                 <quarkus.native.container-build>true</quarkus.native.container-build>
                 <quarkus.native.container-runtime>docker</quarkus.native.container-runtime>
-                <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-native-image:${graalvm-version}-java11</quarkus.native.builder-image>
+                <quarkus.native.builder-image>${quarkus-native-builder-image}</quarkus.native.builder-image>
             </properties>
         </profile>
         <profile>
@@ -1005,7 +1005,7 @@
             <properties>
                 <quarkus.native.container-build>true</quarkus.native.container-build>
                 <quarkus.native.container-runtime>podman</quarkus.native.container-runtime>
-                <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-native-image:${graalvm-version}-java11</quarkus.native.builder-image>
+                <quarkus.native.builder-image>${quarkus-native-builder-image}</quarkus.native.builder-image>
             </properties>
         </profile>
     </profiles>
