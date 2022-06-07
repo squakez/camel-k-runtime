@@ -38,11 +38,11 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <camel-version>3.14.1</camel-version>
+        <camel-version>3.14.2</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>2.7.0</camel-quarkus-version>
-        <quarkus-version>2.7.0.Final</quarkus-version>
+        <camel-quarkus-version>2.7.1</camel-quarkus-version>
+        <quarkus-version>2.7.5.Final</quarkus-version>
         <quarkus-native-builder-image>registry.redhat.io/quarkus/mandrel-21-rhel8:21.3</quarkus-native-builder-image>
 
         <!-- camel-k -->
@@ -403,14 +403,14 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>com.redhat.quarkus.platform</groupId>
+                <groupId>com.redhat.platform</groupId>
                 <artifactId>quarkus-bom</artifactId>
                 <version>${quarkus-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>com.redhat.quarkus.platform</groupId>
+                <groupId>com.redhat.platform</groupId>
                 <artifactId>quarkus-camel-bom</artifactId>
                 <version>${quarkus-version}</version>
                 <type>pom</type>
