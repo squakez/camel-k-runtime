@@ -33,7 +33,8 @@
 
     <properties>
         <camel-version>3.14.2</camel-version>
-
+        <quarkus-version>2.7.5.Final</quarkus-version>
+        
         <!-- reproduceable builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
         <project.build.outputTimestamp>1644316906</project.build.outputTimestamp>
 
@@ -96,14 +97,14 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.redhat.quarkus.platform</groupId>
+                <groupId>io.quarkus.platform</groupId>
                 <artifactId>quarkus-bom</artifactId>
                 <version>${quarkus-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>com.redhat.quarkus.platform</groupId>
+                <groupId>io.quarkus.platform</groupId>
                 <artifactId>quarkus-camel-bom</artifactId>
                 <version>${quarkus-version}</version>
                 <type>pom</type>
