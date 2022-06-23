@@ -44,7 +44,7 @@
         <camel-quarkus-version>2.7.1</camel-quarkus-version>
         <quarkus-version>2.7.5.Final</quarkus-version>
         <!-- Quarkus core and Quarkus platform version may differ -->
-        <quarkus-platform-version>2.7.5.Final</quarkus-platform-version>
+        <quarkus-platform-version>2.7.5.SP1-redhat-00001</quarkus-platform-version>
         <quarkus-native-builder-image>registry.redhat.io/quarkus/mandrel-21-rhel8:21.3</quarkus-native-builder-image>
 
         <!-- camel-k -->
