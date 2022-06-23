@@ -34,6 +34,8 @@
     <properties>
         <camel-version>3.14.2</camel-version>
         <quarkus-version>2.7.5.Final</quarkus-version>
+        <!-- Quarkus core and Quarkus platform version may differ -->
+        <quarkus-platform-version>2.7.5.SP1-redhat-00001</quarkus-platform-version>
         
         <!-- reproduceable builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
         <project.build.outputTimestamp>1644316906</project.build.outputTimestamp>
