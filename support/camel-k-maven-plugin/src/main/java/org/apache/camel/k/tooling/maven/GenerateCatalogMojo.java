@@ -44,6 +44,7 @@ import org.apache.camel.k.catalog.model.Artifact;
 import org.apache.camel.k.catalog.model.CamelArtifact;
 import org.apache.camel.k.catalog.model.CamelCapability;
 import org.apache.camel.k.catalog.model.CamelLoader;
+import org.apache.camel.k.catalog.model.CamelTrait;
 import org.apache.camel.k.catalog.model.CamelScheme;
 import org.apache.camel.k.catalog.model.CatalogComponentDefinition;
 import org.apache.camel.k.catalog.model.CatalogDataFormatDefinition;
@@ -190,6 +191,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
             runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime");
 
             addCapabilities(runtimeSpec, catalogSpec);
+            addTraits(runtimeSpec, catalogSpec);
 
             catalogSpec.runtime(runtimeSpec.build());
 
@@ -489,38 +491,41 @@ public class GenerateCatalogMojo extends AbstractMojo {
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.k", "camel-k-resume-kafka"));
         addCapabilityAndDependecies(runtimeSpec, catalogSpec, "resume-kafka", artifacts, true);
+    }
 
-        artifacts.clear();
+    private void addTraits(RuntimeSpec.Builder runtimeSpec, CamelCatalogSpec.Builder catalogSpec) {
+        List<Artifact> artifacts = new ArrayList<>();
+
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-hashicorp-vault"));
-        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "hashicorp-vault", artifacts, false);
+        addTraitAndDependecies(runtimeSpec, catalogSpec, "hashicorp-vault", artifacts, false);
 
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-azure-key-vault"));
-        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "azure-key-vault", artifacts, false);
+        addTraitAndDependecies(runtimeSpec, catalogSpec, "azure-key-vault", artifacts, false);
 
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-aws-secrets-manager"));
-        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "aws-secrets-manager", artifacts, false);
+        addTraitAndDependecies(runtimeSpec, catalogSpec, "aws-secrets-manager", artifacts, false);
 
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-google-secret-manager"));
-        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "gcp-secret-manager", artifacts, false);
+        addTraitAndDependecies(runtimeSpec, catalogSpec, "gcp-secret-manager", artifacts, false);
 
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.k", "camel-k-knative-impl"));
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-knative"));
-        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "knative", artifacts, false);
+        addTraitAndDependecies(runtimeSpec, catalogSpec, "knative", artifacts, false);
 
         artifacts.clear();
         artifacts.add(Artifact.from("io.micrometer", "micrometer-registry-prometheus"));
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-micrometer"));
-        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "prometheus", artifacts, false);
+        addTraitAndDependecies(runtimeSpec, catalogSpec, "prometheus", artifacts, false);
 
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-management"));
         artifacts.add(Artifact.from("org.apache.camel", "camel-jaxb"));
         artifacts.add(Artifact.from("org.jolokia", "jolokia-jvm"));
-        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "jolokia", artifacts, false);
+        addTraitAndDependecies(runtimeSpec, catalogSpec, "jolokia", artifacts, false);
     }
 
     private void addCapabilityAndDependecies(RuntimeSpec.Builder runtimeSpec, CamelCatalogSpec.Builder catalogSpec, String name,
@@ -537,6 +542,19 @@ public class GenerateCatalogMojo extends AbstractMojo {
                     .build());
             }
         }
+    }
 
+    private void addTraitAndDependecies(RuntimeSpec.Builder runtimeSpec, CamelCatalogSpec.Builder catalogSpec, String name,
+        List<Artifact> artifacts, boolean addDependency) {
+        CamelTrait.Builder trait = new CamelTrait.Builder();
+        artifacts.forEach(artifact -> trait.addDependency(artifact.getGroupId(), artifact.getArtifactId()));
+        CamelTrait dependency = trait.build();
+        runtimeSpec.putTrait(name, dependency);
+        if (addDependency && !artifacts.isEmpty()) {
+            catalogSpec.putArtifact(new CamelArtifact.Builder()
+                .groupId(artifacts.get(0).getGroupId())
+                .artifactId(artifacts.get(0).getArtifactId())
+                .build());
+        }
     }
 }
